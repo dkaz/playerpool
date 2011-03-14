@@ -4,7 +4,7 @@ class CreatePlayers < ActiveRecord::Migration
       t.references :team
       t.string :first_name
       t.string :last_name
-      t.integer :points
+      t.integer :points, :default => 0
 
       t.timestamps
     end

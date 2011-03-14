@@ -15,8 +15,9 @@ class Game < ActiveRecord::Base
   def update_player_points
     players = json_response[0]['away']['players']['starters'] + json_response[0]['home']['players']['starters']
     players.each do |p|
-      player = Player.where(:last_name => p['lastname'], :first_name => p['firstname'], :team_id => Team.where(:code => p['teamcode'])).first
-      next if player.nil?
+      team = Team.where :code => p['teamcode']
+      raise 'Unable to find team' if team.nil?
+      player = Player.find_or_create p['lastname'], p['firstname'], team 
       player.update_attributes! :points => player.points + p['points'].to_i
     end
   end

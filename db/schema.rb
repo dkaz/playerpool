@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(:version => 20110314014654) do
     t.integer  "team_id"
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "points"
+    t.integer  "points",     :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

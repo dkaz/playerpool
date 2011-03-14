@@ -12,4 +12,11 @@ class GameTest < ActiveSupport::TestCase
     game = Game.create! :url => 'http://api.fanfeedr.com'
     assert_equal 45, Player.find_by_last_name('Sullinger').points
   end
+
+  test 'should create player if he does not exist' do
+    game = Game.create! :url => 'http://api.fanfeedr.com'
+    player = Player.find_by_last_name('Lighty')
+    assert_not_nil player, 'Lighty was not created'
+    assert_equal 8, player.points 
+  end
 end
