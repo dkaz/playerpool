@@ -45,6 +45,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    mocha (0.9.12)
     polyglot (0.3.1)
     rack (1.2.2)
     rack-mount (0.6.13)
@@ -77,5 +78,6 @@ PLATFORMS
 DEPENDENCIES
   haml (= 3.0.25)
   haml-rails (= 0.3.4)
+  mocha (= 0.9.12)
   rails (= 3.0.5)
   sqlite3

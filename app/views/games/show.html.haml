@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Url:
+  = @game.url
+%p
+  %b Home:
+  = @game.home
+%p
+  %b Away:
+  = @game.away
+
+= link_to 'Edit', edit_game_path(@game)
+\|
+= link_to 'Back', games_path
