@@ -4,5 +4,5 @@
     %th Total Points
   - @users.each do |u|
     %tr
-      %td= u.full_name 
+      %td= link_to u.full_name, u
       %td= u.total_points
