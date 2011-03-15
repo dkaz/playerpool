@@ -1,6 +1,5 @@
 class PlayerPoolController < ApplicationController
   def index
-    @params = params
-    @player = Player.find_by_last_name(@params['last_name'])
+    @users = User.all
   end
 end

@@ -1,5 +1,8 @@
-= form_tag do
-  = label_tag 'Player Last Name'
-  = text_field_tag 'last_name'
-
-%h2= @player.inspect
+%table{:border => 1}
+  %tr
+    %th Name
+    %th Total Points
+  - @users.each do |u|
+    %tr
+      %td= u.full_name 
+      %td= u.total_points

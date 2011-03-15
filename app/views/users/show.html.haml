@@ -1,11 +1,15 @@
 %p#notice= notice
 
-%p
-  %b First name:
-  = @user.first_name
-%p
-  %b Last name:
-  = @user.last_name
+%h2= "#{@user.full_name}: #{@user.total_points} points"
+
+%table
+  %tr
+    %th Name
+    %th Points
+  - @user.players.each do |p|
+    %tr
+      %td= p.full_name
+      %td= p.points
 
 = link_to 'Edit', edit_user_path(@user)
 \|
