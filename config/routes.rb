@@ -1,4 +1,5 @@
 Playerpool::Application.routes.draw do
+  resources :users
   resources :games
   resources :players
   resources :teams
