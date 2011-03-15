@@ -15,12 +15,12 @@ class Game < ActiveRecord::Base
 
   def update_player_points
     data = JSON.parse json_response
-    players = data[0]['away']['players']['starters'] + data[0]['home']['players']['starters']
-    players.each do |p|
-      team = Team.where(:code => p['teamcode']).first
-      raise 'Unable to find team' if team.nil?
-      player = Player.find_or_create p['lastname'], p['firstname'], team 
-      player.update_attributes! :points => player.points + p['points'].to_i
+    ['home', 'away'].each do |side|
+      data[0][side]['players']['starters'].each do |p|
+        team = Team.find_or_create_by_code(:code => p['teamcode'], :name => data[0][side]['preferred_name'])
+        player = Player.find_or_create_by_last_name(:last_name => p['lastname'], :first_name => p['firstname'], :team_id => team.id) 
+        player.update_attributes! :points => player.points + p['points'].to_i
+      end
     end
   end
 end

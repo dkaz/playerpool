@@ -19,4 +19,11 @@ class GameTest < ActiveSupport::TestCase
     assert_not_nil player, 'Lighty was not created'
     assert_equal 8, player.points 
   end
+
+  test 'should create team if it does not exist' do
+    game = Game.create! :url => 'http://api.fanfeedr.com'
+    team = Team.find_by_code('PENNST')
+    assert_not_nil team, 'PENNST was not created'
+    assert_equal 'Penn St', team.name
+  end
 end
