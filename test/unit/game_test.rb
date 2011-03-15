@@ -26,4 +26,10 @@ class GameTest < ActiveSupport::TestCase
     assert_not_nil team, 'PENNST was not created'
     assert_equal 'Penn St', team.name
   end
+
+  test 'should subtract points when deleting game' do
+    game = Game.create! :url => 'http://api.fanfeedr.com'
+    game.destroy
+    assert_equal 0, Player.find_by_last_name('Lighty').points
+  end
 end

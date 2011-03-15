@@ -40,8 +40,9 @@ class GamesControllerTest < ActionController::TestCase
   end
 
   test "should destroy game" do
+    game = Game.create :url => 'http://api.foo.com/2'
     assert_difference('Game.count', -1) do
-      delete :destroy, :id => @game.to_param
+      delete :destroy, :id => game.to_param
     end
 
     assert_redirected_to games_path

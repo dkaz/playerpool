@@ -1,7 +1,6 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  url: 'http://api.foo.com'
-  home: UNLV
-  away: ILLINOIS
-
+  url: http://api.foo.com
+  home: OHIOST
+  away: PENNST
