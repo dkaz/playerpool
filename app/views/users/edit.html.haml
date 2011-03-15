@@ -2,6 +2,23 @@
 
 = render 'form'
 
+%hr
+
+%table
+  %tr
+    %th Name
+    %th Points
+  - @user.players.each do |p|
+    %tr
+      %td= p.full_name
+      %td= p.points
+
+= form_tag add_player_user_path(@user), :method => :post do
+  = hidden_field_tag :player_id
+  = label_tag 'Player Name:'
+  = text_field_tag :player_name
+  = submit_tag 'Add'
+
 = link_to 'Show', @user
 \|
 = link_to 'Back', users_path

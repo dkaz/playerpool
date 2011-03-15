@@ -46,4 +46,10 @@ class UsersControllerTest < ActionController::TestCase
 
     assert_redirected_to users_path
   end
+
+  test "should add player to user" do
+    assert_difference('@user.players.count') do
+      post :add_player, :id => @user.to_param, :player_id => players(:one).to_param 
+    end
+  end
 end
