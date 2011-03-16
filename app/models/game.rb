@@ -19,7 +19,7 @@ class Game < ActiveRecord::Base
     ['home', 'away'].each do |side|
       data[0][side]['players']['starters'].each do |p|
         team = Team.find_or_create_by_code(:code => p['teamcode'], :name => data[0][side]['preferred_name'])
-        player = Player.find_or_create_by_last_name(:last_name => p['lastname'], :first_name => p['firstname'], :team_id => team.to_param) 
+        player = Player.find_or_create_by_last_name_and_first_name_and_team_id(p['lastname'], p['firstname'], team.to_param) 
         player.update_attributes! :points => player.points + p['points'].to_i
       end
     end

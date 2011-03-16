@@ -2,7 +2,6 @@
 
 %table
   %tr
-    %th Url
     %th Home
     %th Away
     %th
@@ -11,7 +10,6 @@
 
   - @games.each do |game|
     %tr
-      %td= game.url
       %td= game.home
       %td= game.away
       %td= link_to 'Show', game
