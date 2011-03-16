@@ -11,7 +11,7 @@ task :update_games, :day, :needs => :environment do |t,args|
   resources = games.collect{|g| g['resource']}
   puts "Creating #{resources.count} games"
   resources.each do |r|
-    Game.create :url => "http://api.fanfeedr.com/basic/v1/boxscore?format=json&resource=#{r}&appId=ybvmwcag2xz9t7f2sagcmy4x"
+    Game.find_or_create_by_url "http://api.fanfeedr.com/basic/v1/boxscore?format=json&resource=#{r}&appId=ybvmwcag2xz9t7f2sagcmy4x"
     print '.'
   end
   puts

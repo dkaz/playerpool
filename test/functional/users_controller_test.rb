@@ -51,5 +51,7 @@ class UsersControllerTest < ActionController::TestCase
     assert_difference('@user.players.count') do
       post :add_player, :id => @user.to_param, :player_id => players(:one).to_param 
     end
+
+    assert_redirected_to edit_user_path(@user)
   end
 end
