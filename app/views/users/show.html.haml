@@ -5,10 +5,12 @@
 %table
   %tr
     %th Name
+    %th Team
     %th Points
   - @user.players.each do |p|
     %tr
       %td= p.full_name
+      %td= p.team
       %td= p.points
 
 = link_to 'Edit', edit_user_path(@user)
