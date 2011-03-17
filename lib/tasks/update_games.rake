@@ -14,7 +14,7 @@ task :update_games, :day, :needs => :environment do |t,args|
     exit
   end
   games = JSON.parse response.body
-  resources = games.collect{|g| g['resource']}
+  resources = games.reject{|g| g['status'] != 'FINAL'}.collect{|g| g['resource']}
   puts "Found #{resources.count} games"
   resources.each do |r|
     begin
