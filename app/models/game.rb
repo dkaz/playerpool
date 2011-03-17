@@ -8,8 +8,7 @@ class Game < ActiveRecord::Base
   validates_uniqueness_of :url
 
   def fetch_game_attributes
-    self.json_response = Net::HTTP.get_response(URI.parse(self.url)).body
-    response = JSON.parse self.json_response 
+    response = JSON.parse Net::HTTP.get_response(URI.parse(self.url)).body
     raise "ERROR: EMPTY DATA (#{response.inspect})"  if response.nil? || response.empty? || response[0].nil?
     raise "ERROR: STATUS NOT FINAL (#{response[0]['status']})" if response[0]['status'] != 'FINA' 
     self.away = response[0]['away']['code']
@@ -17,7 +16,7 @@ class Game < ActiveRecord::Base
   end
 
   def update_player_points
-    data = JSON.parse json_response
+    data = JSON.parse Net::HTTP.get_response(URI.parse(self.url)).body
     ['home', 'away'].each do |side|
       data[0][side]['players']['starters'].each do |p|
         team = Team.find_or_create_by_code(:code => p['teamcode'], :name => data[0][side]['preferred_name'])
@@ -28,7 +27,7 @@ class Game < ActiveRecord::Base
   end
 
   def subtract_player_points
-    data = JSON.parse json_response
+    data = JSON.parse Net::HTTP.get_response(URI.parse(self.url)).body
     ['home', 'away'].each do |side|
       data[0][side]['players']['starters'].each do |p|
         team = Team.find_by_code p['teamcode']
