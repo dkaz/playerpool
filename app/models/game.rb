@@ -10,6 +10,8 @@ class Game < ActiveRecord::Base
   def fetch_game_attributes
     self.json_response = Net::HTTP.get_response(URI.parse(self.url)).body
     response = JSON.parse self.json_response 
+    raise "ERROR: EMPTY DATA (#{response.inspect})"  if response.nil? || response.empty? || response[0].nil?
+    raise "ERROR: STATUS NOT FINAL (#{response[0]['status']})" if response[0]['status'] != 'FINA' 
     self.away = response[0]['away']['code']
     self.home = response[0]['home']['code']
   end
