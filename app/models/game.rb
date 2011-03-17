@@ -8,7 +8,9 @@ class Game < ActiveRecord::Base
   validates_uniqueness_of :url
 
   def fetch_game_attributes
-    response = JSON.parse Net::HTTP.get_response(URI.parse(self.url)).body
+    http_response = Net::HTTP.get_response(URI.parse(self.url))
+    raise "ERROR: HTTP RESPONSE STATUS NOT 200: #{http_response.body}" if http_response.code != '200'
+    response = JSON.parse http_response.body
     raise "ERROR: EMPTY DATA (#{response.inspect})"  if response.nil? || response.empty? || response[0].nil?
     raise "ERROR: STATUS NOT FINAL (#{response[0]['status']})" if response[0]['status'] != 'FINA' 
     self.away = response[0]['away']['code']
