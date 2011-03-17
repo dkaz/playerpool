@@ -7,8 +7,10 @@
           %li= msg
 
   .field
-    = f.label :team
-    = f.text_field :team
+    = f.label :team_name
+    = text_field_tag :player_team
+  .field
+    = f.hidden_field :team_id
   .field
     = f.label :first_name
     = f.text_field :first_name
