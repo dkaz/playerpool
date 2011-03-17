@@ -19,12 +19,11 @@ task :update_games, :day, :needs => :environment do |t,args|
   resources.each do |r|
     begin
       sleep 1
+      puts "Looking for resource #{r}"
       Game.find_or_create_by_url "http://api.fanfeedr.com/basic/v1/boxscore?format=json&resource=#{r}&appId=ybvmwcag2xz9t7f2sagcmy4x"
     rescue Exception => e
-      print "\n"
       puts e.message
     end
-    print '.'
   end
   puts
 end
