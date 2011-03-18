@@ -8,4 +8,8 @@ class User < ActiveRecord::Base
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def players_remaining
+    players.reject{|p| p.eliminated?}.count
+  end
 end

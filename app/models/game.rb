@@ -3,7 +3,7 @@ require 'uri'
 
 class Game < ActiveRecord::Base
   before_create :fetch_game_attributes
-  after_create :update_player_points
+  after_create :update_players_and_teams
   before_destroy :subtract_player_points
   validates_uniqueness_of :url
 
@@ -17,15 +17,10 @@ class Game < ActiveRecord::Base
     self.home = response[0]['home']['code']
   end
 
-  def update_player_points
+  def update_players_and_teams
     data = JSON.parse Net::HTTP.get_response(URI.parse(self.url)).body
-    ['home', 'away'].each do |side|
-      data[0][side]['players']['starters'].each do |p|
-        team = Team.find_or_create_by_code(:code => p['teamcode'], :name => data[0][side]['preferred_name'])
-        player = Player.find_or_create_by_last_name_and_first_name_and_team_id(p['lastname'], p['firstname'], team.to_param) 
-        player.update_attributes! :points => player.points + p['points'].to_i
-      end
-    end
+    update_player_points data
+    eliminate_loser data
   end
 
   def subtract_player_points
@@ -37,5 +32,23 @@ class Game < ActiveRecord::Base
         player.update_attributes! :points => player.points - p['points'].to_i
       end
     end
+  end
+
+  private 
+  def update_player_points data
+    ['home', 'away'].each do |side|
+      data[0][side]['players']['starters'].each do |p|
+        team = Team.find_or_create_by_code(:code => p['teamcode'], :name => data[0][side]['preferred_name'])
+        player = Player.find_or_create_by_last_name_and_first_name_and_team_id(p['lastname'], p['firstname'], team.to_param) 
+        player.update_attributes! :points => player.points + p['points'].to_i
+      end
+    end
+  end
+
+  def eliminate_loser data
+    home = Team.find_by_code self.home
+    home.update_attributes!(:eliminated => true) if data[0]['home']['winlose'] == 'L'
+    away = Team.find_by_code self.away
+    away.update_attributes!(:eliminated => true) if data[0]['away']['winlose'] == 'L'
   end
 end

@@ -10,23 +10,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110317030423) do
+ActiveRecord::Schema.define(:version => 20110318130022) do
 
   create_table "games", :force => true do |t|
-    t.string   "url"
-    t.string   "home"
-    t.string   "away"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "url"
+    t.string    "home"
+    t.string    "away"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "players", :force => true do |t|
-    t.integer  "team_id"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.integer  "points",     :default => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer   "team_id"
+    t.string    "first_name"
+    t.string    "last_name"
+    t.integer   "points",     :default => 0
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "players_users", :id => false, :force => true do |t|
@@ -35,17 +35,18 @@ ActiveRecord::Schema.define(:version => 20110317030423) do
   end
 
   create_table "teams", :force => true do |t|
-    t.string   "code"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "code"
+    t.string    "name"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.boolean   "eliminated", :default => false
   end
 
   create_table "users", :force => true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "first_name"
+    t.string    "last_name"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
 end

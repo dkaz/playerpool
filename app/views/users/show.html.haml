@@ -8,7 +8,7 @@
     %th Team
     %th Points
   - @user.players.each do |p|
-    %tr
+    %tr{:class => (p.eliminated? ? 'eliminated' : nil)}
       %td= p.full_name
       %td= p.team
       %td= p.points

@@ -21,6 +21,7 @@ class GamesControllerTest < ActionController::TestCase
       post :create, :game => {:url => 'http://api.foo.com/2'}
     end
 
+    assert Team.find_by_code('PENNST').eliminated, 'Penn State was not eliminated'
     assert_redirected_to game_path(assigns(:game))
   end
 
