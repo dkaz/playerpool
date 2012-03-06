@@ -10,7 +10,7 @@ namespace :data do
       doc = Nokogiri::HTML(response.body)
       doc.search("a").each do |line|
         if line.to_html.match(/ncaab\/teams\//)
-          name = line.to_html.match(/>(.*)<\/a>/)[1].gsub(/&#160;/, ' ').gsub(/&amp;/, '&')
+          name = line.inner_html.gsub(/&#160;/, ' ').gsub(/&amp;/, '&').gsub(/&nbsp;/, ' ')
           puts "creating #{name}"
           Team.create :code => line.to_html.match(/ncaab\/teams\/(.*)\"/)[1], :name => name
         end 
