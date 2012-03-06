@@ -11,4 +11,8 @@ class Player < ActiveRecord::Base
   def eliminated?
     team.eliminated
   end
+
+  def team_name
+    team.to_s
+  end
 end

@@ -27,7 +27,7 @@
       success: function(response){
         var data = $("player", response).map(function() {
           return {
-            value: $("first-name", this).text() + " " + $("last-name", this).text(),
+            value: $("full-name", this).text() + " (" + $("team-name", this).text() + ")",
             id: $("id", this).text()
           };
         }).get();
