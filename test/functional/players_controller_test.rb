@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PlayersControllerTest < ActionController::TestCase
   setup do
-    @player = players(:one)
+    @player = Player.create :yahoo_id => 13, :team => Team.create(:code => 'iae')
   end
 
   test "should get index" do
@@ -18,7 +18,7 @@ class PlayersControllerTest < ActionController::TestCase
 
   test "should create player" do
     assert_difference('Player.count') do
-      post :create, :player => @player.attributes.merge(:last_name => 'Smith')
+      post :create, :player => @player.attributes.merge(:yahoo_id => 5, :last_name => 'Smith')
     end
 
     assert_redirected_to player_path(assigns(:player))

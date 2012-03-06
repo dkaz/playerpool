@@ -1,8 +1,9 @@
 require 'test_helper'
 
 class GamesControllerTest < ActionController::TestCase
-  setup do
-    @game = games(:one)
+  def setup
+    super
+    @game = Game.create :url => 'http://rivals.yahoo.com'
   end
 
   test "should get index" do
@@ -18,10 +19,9 @@ class GamesControllerTest < ActionController::TestCase
 
   test "should create game" do
     assert_difference('Game.count') do
-      post :create, :game => {:url => 'http://api.foo.com/2'}
+      post :create, :game => {:url => 'http://rivals.yahoo.com/2'}
     end
 
-    assert Team.find_by_code('PENNST').eliminated, 'Penn State was not eliminated'
     assert_redirected_to game_path(assigns(:game))
   end
 
@@ -40,12 +40,4 @@ class GamesControllerTest < ActionController::TestCase
     assert_redirected_to game_path(assigns(:game))
   end
 
-  test "should destroy game" do
-    game = Game.create :url => 'http://api.foo.com/2'
-    assert_difference('Game.count', -1) do
-      delete :destroy, :id => game.to_param
-    end
-
-    assert_redirected_to games_path
-  end
 end

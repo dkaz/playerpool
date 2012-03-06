@@ -2,7 +2,7 @@ require 'test_helper'
 
 class TeamsControllerTest < ActionController::TestCase
   setup do
-    @team = teams(:one)
+    @team = Team.create :code => 'iae'
   end
 
   test "should get index" do

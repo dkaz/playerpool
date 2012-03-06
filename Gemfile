@@ -9,6 +9,7 @@ gem 'sqlite3'
 gem 'haml', '3.0.25'
 gem 'haml-rails', '0.3.4'
 gem 'json_pure', '1.4.6', :require => 'json'
+gem 'nokogiri'
 
 # Use unicorn as the web server
 # gem 'unicorn'

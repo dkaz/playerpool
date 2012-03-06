@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
   setup do
-    @user = users(:one)
+    @user = User.create :first_name => 'Joe', :last_name => 'Schmoe'
   end
 
   test "should get index" do
@@ -48,8 +48,9 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should add player to user" do
+    player = Player.create :yahoo_id => 123
     assert_difference('@user.players.count') do
-      post :add_player, :id => @user.to_param, :player_id => players(:one).to_param 
+      post :add_player, :id => @user.to_param, :player_id => player
     end
 
     assert_redirected_to edit_user_path(@user)
